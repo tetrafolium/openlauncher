@@ -2,8 +2,10 @@ package com.benny.openlauncher.viewutil;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -25,6 +27,7 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
     private int _iconSize = Integer.MAX_VALUE;
     private int _iconGravity;
     private int _iconPadding;
+    private int _iconColor;
 
     public String _label;
     private int _textGravity = Gravity.CENTER_VERTICAL;
@@ -51,8 +54,13 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
         return this;
     }
 
-    public IconLabelItem withIconSize(Context context, int iconSize) {
+    public IconLabelItem withIconSize(int iconSize) {
         _iconSize = Tool.dp2px(iconSize);
+        return this;
+    }
+
+    public IconLabelItem withIconColor(int iconColor) {
+        _iconColor = iconColor;
         return this;
     }
 
@@ -61,7 +69,7 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
         return this;
     }
 
-    public IconLabelItem withIconPadding(Context context, int iconPadding) {
+    public IconLabelItem withIconPadding(int iconPadding) {
         _iconPadding = Tool.dp2px(iconPadding);
         return this;
     }
@@ -97,8 +105,8 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
     }
 
     @Override
-    public ViewHolder getViewHolder(View v) {
-        return new ViewHolder(v, this);
+    public ViewHolder getViewHolder(@NonNull View view) {
+        return new ViewHolder(view, this);
     }
 
     @Override
@@ -112,7 +120,7 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
     }
 
     @Override
-    public void bindView(IconLabelItem.ViewHolder holder, List payloads) {
+    public void bindView(@NonNull ViewHolder holder, @NonNull List<Object> payloads) {
         if (_width == Integer.MAX_VALUE) {
             holder.itemView.getLayoutParams().width = RecyclerView.LayoutParams.MATCH_PARENT;
         } else {
@@ -140,6 +148,7 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
         holder.textView.setCompoundDrawablePadding(_iconPadding);
         if (_iconSize != Integer.MAX_VALUE) {
             _icon = new BitmapDrawable(Setup.appContext().getResources(), Bitmap.createScaledBitmap(Tool.drawableToBitmap(_icon), _iconSize, _iconSize, true));
+            _icon.setColorFilter(_iconColor, PorterDuff.Mode.SRC_ATOP);
             if (_isAppLauncher) {
                 _icon.setBounds(0, 0, _iconSize, _iconSize);
             }
@@ -183,6 +192,7 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
             holder.itemView.setOnClickListener(_onClickListener);
         if (_onLongClickListener != null)
             holder.itemView.setOnLongClickListener(_onLongClickListener);
+
         super.bindView(holder, payloads);
     }
 
@@ -191,7 +201,7 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
         return this;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
 
         ViewHolder(View itemView, IconLabelItem item) {

@@ -81,7 +81,7 @@ public class SettingsAboutFragment extends GsPreferenceFragmentCompat<AppSetting
                     return true;
                 }
                 case R.string.pref_key__more_info__bug_reports: {
-                    _cu.openWebpageInExternalBrowser(getString(R.string.app_bugreport_url));
+                    _cu.openWebpageInExternalBrowser(getString(R.string.app_bug_report_url));
                     return true;
                 }
                 case R.string.pref_key__more_info__translate: {
@@ -167,7 +167,7 @@ public class SettingsAboutFragment extends GsPreferenceFragmentCompat<AppSetting
 
         // Basic app info
         if ((pref = findPreference(R.string.pref_key__more_info__app)) != null && pref.getSummary() == null) {
-            pref.setIcon(R.drawable.ic_launcher);
+            pref.setIcon(R.mipmap.ic_launcher);
             pref.setSummary(String.format(locale, "%s\nVersion v%s (%d)", _cu.getPackageIdReal(), _cu.getAppVersionName(), _cu.bcint("VERSION_CODE", 0)));
         }
 
@@ -190,7 +190,7 @@ public class SettingsAboutFragment extends GsPreferenceFragmentCompat<AppSetting
                 Preference person = new Preference(context);
                 person.setTitle(data[i]);
                 person.setSummary(data[i + 1]);
-                person.setIcon(R.drawable.ic_person_black_24dp);
+                person.setIcon(R.drawable.ic_person);
                 try {
                     Uri uri = Uri.parse(data[i + 2]);
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);

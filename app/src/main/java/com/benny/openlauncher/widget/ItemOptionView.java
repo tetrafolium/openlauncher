@@ -70,10 +70,10 @@ public final class ItemOptionView extends FrameLayout {
     private final int removeItemIdentifier = 86;
     private final int resizeItemIdentifier = 87;
 
-    private PopupIconLabelItem uninstallItem = new PopupIconLabelItem(R.string.uninstall, R.drawable.ic_delete_dark_24dp).withIdentifier(uninstallItemIdentifier);
-    private PopupIconLabelItem infoItem = new PopupIconLabelItem(R.string.info, R.drawable.ic_info_outline_dark_24dp).withIdentifier(infoItemIdentifier);
-    private PopupIconLabelItem editItem = new PopupIconLabelItem(R.string.edit, R.drawable.ic_edit_black_24dp).withIdentifier(editItemIdentifier);
-    private PopupIconLabelItem removeItem = new PopupIconLabelItem(R.string.remove, R.drawable.ic_close_dark_24dp).withIdentifier(removeItemIdentifier);
+    private PopupIconLabelItem uninstallItem = new PopupIconLabelItem(R.string.uninstall, R.drawable.ic_delete).withIdentifier(uninstallItemIdentifier);
+    private PopupIconLabelItem infoItem = new PopupIconLabelItem(R.string.info, R.drawable.ic_info).withIdentifier(infoItemIdentifier);
+    private PopupIconLabelItem editItem = new PopupIconLabelItem(R.string.edit, R.drawable.ic_edit).withIdentifier(editItemIdentifier);
+    private PopupIconLabelItem removeItem = new PopupIconLabelItem(R.string.remove, R.drawable.ic_close).withIdentifier(removeItemIdentifier);
     private PopupIconLabelItem resizeItem = new PopupIconLabelItem(R.string.resize, R.drawable.ic_resize).withIdentifier(resizeItemIdentifier);
 
     public static final class DragFlag {
@@ -138,22 +138,22 @@ public final class ItemOptionView extends FrameLayout {
         super(context, attrs);
         this.DRAG_THRESHOLD = 20.0f;
         _paint = new Paint(1);
-        _registeredDropTargetEntries = new HashMap();
+        _registeredDropTargetEntries = new HashMap<>();
         _tempArrayOfInt2 = new int[2];
         _dragLocation = new PointF();
         _dragLocationStart = new PointF();
         _dragLocationConverted = new PointF();
         _overlayIconScale = 1.0f;
-        _overlayPopupAdapter = new FastItemAdapter();
+        _overlayPopupAdapter = new FastItemAdapter<>();
         _previewLocation = new PointF();
         _slideInLeftAnimator = new SlideInLeftAnimator(new AccelerateDecelerateInterpolator());
         _slideInRightAnimator = new SlideInRightAnimator(new AccelerateDecelerateInterpolator());
         _paint.setFilterBitmap(true);
-        _paint.setColor(-1);
+        _paint.setColor(Setup.appSettings().getDesktopFolderColor());
         _overlayView = new OverlayView();
         _overlayPopup = new RecyclerView(context);
         _overlayPopup.setVisibility(View.INVISIBLE);
-        _overlayPopup.setAlpha(0.0f);
+        _overlayPopup.setAlpha(0);
         _overlayPopup.setOverScrollMode(2);
         _overlayPopup.setLayoutManager(new LinearLayoutManager(context, 1, false));
         _overlayPopup.setItemAnimator(_slideInLeftAnimator);

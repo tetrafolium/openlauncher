@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.LauncherActivityInfo;
+import android.content.pm.LauncherApps;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -60,6 +63,7 @@ import com.benny.openlauncher.widget.ItemOptionView;
 import com.benny.openlauncher.widget.MinibarView;
 import com.benny.openlauncher.widget.PagerIndicator;
 import com.benny.openlauncher.widget.SearchBar;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -108,15 +112,13 @@ public final class HomeActivity extends Activity implements OnDesktopEditListene
     }
 
     static {
-        _timeChangedIntentFilter.addAction("android.intent.action.TIME_TICK");
-        _timeChangedIntentFilter.addAction("android.intent.action.TIMEZONE_CHANGED");
-        _timeChangedIntentFilter.addAction("android.intent.action.TIME_SET");
-
+        _timeChangedIntentFilter.addAction(Intent.ACTION_TIME_TICK);
+        _timeChangedIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        _timeChangedIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
         _appUpdateIntentFilter.addDataScheme("package");
-        _appUpdateIntentFilter.addAction("android.intent.action.PACKAGE_ADDED");
-        _appUpdateIntentFilter.addAction("android.intent.action.PACKAGE_REMOVED");
-        _appUpdateIntentFilter.addAction("android.intent.action.PACKAGE_CHANGED");
-
+        _appUpdateIntentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        _appUpdateIntentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        _appUpdateIntentFilter.addAction(Intent.ACTION_PACKAGE_CHANGED);
         _shortcutIntentFilter.addAction("com.android.launcher.action.INSTALL_SHORTCUT");
     }
 
@@ -174,6 +176,8 @@ public final class HomeActivity extends Activity implements OnDesktopEditListene
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Companion.setLauncher(this);
+        AndroidThreeTen.init(this);
+
         AppSettings appSettings = AppSettings.get();
 
         ContextUtils contextUtils = new ContextUtils(getApplicationContext());
@@ -318,7 +322,9 @@ public final class HomeActivity extends Activity implements OnDesktopEditListene
         _timeChangedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Intent.ACTION_TIME_TICK)) {
+                if (intent.getAction().equals(Intent.ACTION_TIME_TICK)
+                        || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)
+                        || intent.getAction().equals(Intent.ACTION_TIME_CHANGED)) {
                     updateSearchClock();
                 }
             }
@@ -333,17 +339,28 @@ public final class HomeActivity extends Activity implements OnDesktopEditListene
     public final void onStartApp(@NonNull Context context, @NonNull App app, @Nullable View view) {
         if (BuildConfig.APPLICATION_ID.equals(app._packageName)) {
             LauncherAction.RunAction(Action.LauncherSettings, context);
-        } else {
-            try {
+            return;
+        }
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && app._userHandle != null) {
+                LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+                List<LauncherActivityInfo> activities = launcherApps.getActivityList(app.getPackageName(), app._userHandle);
+                for (int intent = 0; intent < activities.size(); intent++) {
+                    if (app.getComponentName().equals(activities.get(intent).getComponentName().toString()))
+                        launcherApps.startMainActivity(activities.get(intent).getComponentName(), app._userHandle, null, getActivityAnimationOpts(view));
+                }
+            } else {
                 Intent intent = Tool.getIntentFromApp(app);
                 context.startActivity(intent, getActivityAnimationOpts(view));
-                // close app drawer and other items in advance
-                // annoying to wait for app drawer to close
-                handleLauncherResume();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Tool.toast(context, R.string.toast_app_uninstalled);
             }
+
+            // close app drawer and other items in advance
+            // annoying to wait for app drawer to close
+            handleLauncherResume();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Tool.toast(context, R.string.toast_app_uninstalled);
         }
     }
 
