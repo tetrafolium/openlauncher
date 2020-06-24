@@ -2,51 +2,62 @@ inspecode:
 
   astyle:
     auto-fix: true
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 60 }
 
   checkstyle:
+    #config-file: .rocro/checkstyle/checkstyle.xml  # (auto-detected)
     auto-fix: true
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 917 }
 
   clang-format:
     auto-fix: true
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 109 }
 
   cpd:
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 2 }
 
   #### not supported yet ??
   #fortify:
   #  thresholds: { num-issues: 999 }
 
   fossology:
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 9 }
 
   grep:
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 0 }
 
+  ## $ infer --jobs 1 --results-dir "${OUTPUT}" -- ./gradlew clean build
+  ## Note: Some input files use or override a deprecated API.
+  ## Note: Recompile with -Xlint:deprecation for details.
+  ## Note: Some input files use unchecked or unsafe operations.
+  ## Note: Recompile with -Xlint:unchecked for details.
+  ##    ...(snip)...
+  ## Internal Error:   /opt/infer-linux64-v0.17.0/lib/infer/infer/bin/../lib/python/infer.py -j 1
+  ##   --project-root /home/rocro/src/github.com/tetrafolium/openlauncher --out
+  ##   /tmp/.infer.646677133 -- ./gradlew clean build:
+  ##   exited with code 1
   infer:
     thresholds: { num-issues: 999 }
 
   jscpd:
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 41 }
 
   misspell:
     auto-fix: true
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 4 }
 
   pmd:
     auto-fix: true
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 12 }
 
   spotbugs:
     options:
       -targets: app
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 505 }
 
   uncrustify:
     auto-fix: true
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 109 }
 
   #### not supported yet ??
   #understand:
@@ -54,4 +65,4 @@ inspecode:
 
   unused:
     options: [ --single-occurrence, --all-likelihoods ]
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 130 }
