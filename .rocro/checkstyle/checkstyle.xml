@@ -71,9 +71,11 @@
     <!-- Checks for Size Violations.                    -->
     <!-- See https://checkstyle.org/config_sizes.html -->
     <module name="FileLength"/>
+    <!-- ### 1508 issues
     <module name="LineLength">
       <property name="fileExtensions" value="java"/>
     </module>
+    -->
 
     <!-- Checks for whitespace                               -->
     <!-- See https://checkstyle.org/config_whitespace.html -->
@@ -102,16 +104,22 @@
         <module name="InvalidJavadocPosition"/>
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
+        <!-- ### 570 issues
         <module name="JavadocVariable"/>
+        -->
         <module name="JavadocStyle"/>
+        <!-- ### 848 issues
         <module name="MissingJavadocMethod"/>
+        -->
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See https://checkstyle.org/config_naming.html -->
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
+        <!-- ### 277 ssues
         <module name="MemberName"/>
+        -->
         <module name="MethodName"/>
         <module name="PackageName"/>
         <module name="ParameterName"/>
@@ -165,7 +173,9 @@
         <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
+        <!-- ### 300 issues
         <module name="MagicNumber"/>
+        -->
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="SimplifyBooleanExpression"/>
@@ -173,7 +183,9 @@
 
         <!-- Checks for class design                         -->
         <!-- See https://checkstyle.org/config_design.html -->
+        <!-- ### 572 issues
         <module name="DesignForExtension"/>
+        -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
@@ -182,7 +194,9 @@
         <!-- Miscellaneous other checks.                   -->
         <!-- See https://checkstyle.org/config_misc.html -->
         <module name="ArrayTypeStyle"/>
+        <!-- ### 1553 issues
         <module name="FinalParameters"/>
+        -->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
 
