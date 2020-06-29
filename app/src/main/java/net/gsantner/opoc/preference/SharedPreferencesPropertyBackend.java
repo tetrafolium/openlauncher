@@ -75,8 +75,8 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
 
     public SharedPreferencesPropertyBackend(final Context context, final String prefAppName) {
         _context = context.getApplicationContext();
-        _prefAppName = TextUtils.isEmpty(prefAppName) ?
-                       _context.getPackageName() + "_preferences" : prefAppName;
+        _prefAppName = TextUtils.isEmpty(prefAppName)
+                       ? _context.getPackageName() + "_preferences" : prefAppName;
         _prefApp = _context.getSharedPreferences(_prefAppName, Context.MODE_PRIVATE);
     }
 

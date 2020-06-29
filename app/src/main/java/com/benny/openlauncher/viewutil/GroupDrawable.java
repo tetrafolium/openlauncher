@@ -161,7 +161,7 @@ public class GroupDrawable extends Drawable {
             if (_icons[2] != null) {
                 drawIcon(canvas, _icons[2], _padding + _iconSizeDiv4, _iconSizeDiv2 + _padding + _padding32, _iconSizeDiv4 + _iconSizeDiv2 - _padding, _iconSize - _padding + _padding32, _paintIcon);
             }
-        } else {// if (_iconsCount <= 2) {
+        } else { // if (_iconsCount <= 2) {
             if (_icons[0] != null) {
                 drawIcon(canvas, _icons[0], _padding, _padding + _iconSizeDiv4, _iconSizeDiv2 - _padding, _iconSizeDiv4 + _iconSizeDiv2 - _padding, _paintIcon);
             }

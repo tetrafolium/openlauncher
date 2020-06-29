@@ -62,15 +62,15 @@ public class ColorPickerPreference extends Preference {
 
             pickerColorEdit = typedArray.getBoolean(R.styleable.ColorPickerPreference_pickerColorEdit, true);
             pickerTitle = typedArray.getString(R.styleable.ColorPickerPreference_pickerTitle);
-            if (pickerTitle==null)
+            if (pickerTitle == null)
                 pickerTitle = "Choose color";
 
             pickerButtonCancel = typedArray.getString(R.styleable.ColorPickerPreference_pickerButtonCancel);
-            if (pickerButtonCancel==null)
+            if (pickerButtonCancel == null)
                 pickerButtonCancel = "cancel";
 
             pickerButtonOk = typedArray.getString(R.styleable.ColorPickerPreference_pickerButtonOk);
-            if (pickerButtonOk==null)
+            if (pickerButtonOk == null)
                 pickerButtonOk = "ok";
 
         } finally {
@@ -154,8 +154,8 @@ public class ColorPickerPreference extends Preference {
         int b = Color.blue(color);
 
         return Color.argb(a,
-                          Math.max((int)(r * factor), 0),
-                          Math.max((int)(g * factor), 0),
-                          Math.max((int)(b * factor), 0));
+                          Math.max((int) (r * factor), 0),
+                          Math.max((int) (g * factor), 0),
+                          Math.max((int) (b * factor), 0));
     }
 }

@@ -102,7 +102,7 @@ public class NotificationListener extends NotificationListenerService {
     }
 
     public static void setNotificationCallback(String packageName, NotificationCallback callback) {
-        ArrayList<NotificationCallback> callbacks =_currentNotifications.get(packageName);
+        ArrayList<NotificationCallback> callbacks = _currentNotifications.get(packageName);
 
         if (callbacks != null) {
             callbacks.add(callback);

@@ -71,7 +71,7 @@ public class SimpleMarkdownParser {
                    .replaceAll("(?m)\\*(.*)\\*", "<i>$1</i>") // italic (DEP: temp star code)
                    .replace("●", "*") // restore escaped star symbol (DEP: b,i)
                    .replaceAll("(?m)  $", "<br/>") // new line (DEP: ul)
-                   ;
+;
         }
     };
 
@@ -101,7 +101,7 @@ public class SimpleMarkdownParser {
                    .replaceAll("(?m)\\*(.*)\\*", "<i>$1</i>") // italic (DEP: temp star code)
                    .replace("●", "*") // restore escaped star symbol (DEP: b,i)
                    .replaceAll("(?m)  $", "<br/>") // new line (DEP: ul)
-                   ;
+;
             return text;
         }
     };
@@ -121,7 +121,7 @@ public class SimpleMarkdownParser {
                    .replace("Improved:", "<font color='#555555'>Improved:</font>")
                    .replace("Modified:", "<font color='#555555'>Modified:</font>")
                    .replace("Mod:", "<font color='#555555'>Mod:</font>")
-                   ;
+;
             return text;
         }
     };

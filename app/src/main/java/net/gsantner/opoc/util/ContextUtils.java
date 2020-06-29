@@ -984,9 +984,9 @@ public class ContextUtils {
     public boolean isDeviceGoodHardware() {
         try {
             ActivityManager activityManager = (ActivityManager) _context.getSystemService(Context.ACTIVITY_SERVICE);
-            return !ActivityManagerCompat.isLowRamDevice(activityManager) &&
-                   Runtime.getRuntime().availableProcessors() >= 4 &&
-                   activityManager.getMemoryClass() >= 128;
+            return !ActivityManagerCompat.isLowRamDevice(activityManager)
+                   && Runtime.getRuntime().availableProcessors() >= 4
+                   && activityManager.getMemoryClass() >= 128;
         } catch (Exception ignored) {
             return true;
         }
