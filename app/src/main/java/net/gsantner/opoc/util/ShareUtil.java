@@ -167,11 +167,11 @@ public class ShareUtil {
         }
 
         ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(_context, Long.toString(new Random().nextLong()))
-                .setIntent(intent)
-                .setIcon(IconCompat.createWithResource(_context, iconRes))
-                .setShortLabel(title)
-                .setLongLabel(title)
-                .build();
+        .setIntent(intent)
+        .setIcon(IconCompat.createWithResource(_context, iconRes))
+        .setShortLabel(title)
+        .setLongLabel(title)
+        .build();
         ShortcutManagerCompat.requestPinShortcut(_context, shortcut, null);
     }
 
@@ -495,7 +495,7 @@ public class ShareUtil {
     public void pasteOnHastebin(final String text, final Callback.a2<Boolean, String> callback, final String... serverOrNothing) {
         final Handler handler = new Handler();
         final String server = (serverOrNothing != null && serverOrNothing.length > 0 && serverOrNothing[0] != null)
-                ? serverOrNothing[0] : "https://hastebin.com";
+                              ? serverOrNothing[0] : "https://hastebin.com";
         new Thread() {
             public void run() {
                 // Returns a simple result, handleable without json parser {"key":"feediyujiq"}
@@ -503,7 +503,7 @@ public class ShareUtil {
                 final String key = (ret.length() > 15) ? ret.split("\"")[3] : "";
                 handler.post(() -> callback.callback(!key.isEmpty(), server + "/" + key));
             }
-        }.start();
+        } .start();
     }
 
     /**
@@ -565,14 +565,14 @@ public class ShareUtil {
                         fileStr = "/" + fileStr;
                     }
                     // Some do add some custom prefix
-                    for (String prefix : new String[]{"file", "document", "root_files", "name"}) {
+                    for (String prefix : new String[] {"file", "document", "root_files", "name"}) {
                         if (fileStr.startsWith(prefix)) {
                             fileStr = fileStr.substring(prefix.length());
                         }
                     }
 
                     // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
-                    for (String prefix : new String[]{"external/", "media/", "storage_root/"}) {
+                    for (String prefix : new String[] {"external/", "media/", "storage_root/"}) {
                         if (fileStr.startsWith((tmps = prefix))) {
                             File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
                             if (f.exists()) {
@@ -582,7 +582,7 @@ public class ShareUtil {
                     }
 
                     // Next/OwnCloud Fileprovider
-                    for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
+                    for (String fp : new String[] {"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
                         if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
                             return new File(Uri.decode("/storage/" + fileStr.substring(tmps.length())));
                         }
@@ -597,7 +597,7 @@ public class ShareUtil {
                     }
 
                     if (fileStr.startsWith(tmps = "external_files/")) {
-                        for (String prefix : new String[]{Environment.getExternalStorageDirectory().getAbsolutePath(), "/storage", ""}) {
+                        for (String prefix : new String[] {Environment.getExternalStorageDirectory().getAbsolutePath(), "/storage", ""}) {
                             File f = new File(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
                             if (f.exists()) {
                                 return f;
@@ -714,75 +714,75 @@ public class ShareUtil {
     public Object extractResultFromActivityResult(final int requestCode, final int resultCode, final Intent data, final Activity... activityOrNull) {
         Activity activity = greedyGetActivity(activityOrNull);
         switch (requestCode) {
-            case REQUEST_CAMERA_PICTURE: {
-                String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
+        case REQUEST_CAMERA_PICTURE: {
+            String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
+            if (picturePath != null) {
+                sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+            }
+            return picturePath;
+        }
+        case REQUEST_PICK_PICTURE: {
+            if (resultCode == RESULT_OK && data != null) {
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                String picturePath = null;
+
+                Cursor cursor = _context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    for (String column : filePathColumn) {
+                        int curColIndex = cursor.getColumnIndex(column);
+                        if (curColIndex == -1) {
+                            continue;
+                        }
+                        picturePath = cursor.getString(curColIndex);
+                        if (!TextUtils.isEmpty(picturePath)) {
+                            break;
+                        }
+                    }
+                    cursor.close();
+                }
+
+                // Try to grab via file extraction method
+                data.setAction(Intent.ACTION_VIEW);
+                picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(data);
+
+                // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
+                if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    try {
+                        ParcelFileDescriptor parcelFileDescriptor = _context.getContentResolver().openFileDescriptor(selectedImage, "r");
+                        if (parcelFileDescriptor != null) {
+                            FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                            FileInputStream input = new FileInputStream(fileDescriptor);
+
+                            // Create temporary file in cache directory
+                            picturePath = File.createTempFile("image", "tmp", _context.getCacheDir()).getAbsolutePath();
+                            FileUtils.writeFile(new File(picturePath), FileUtils.readCloseBinaryStream(input));
+                        }
+                    } catch (IOException ignored) {
+                        // nothing we can do here, null value will be handled below
+                    }
+                }
+
+                // Return path to picture on success, else null
                 if (picturePath != null) {
                     sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                 }
                 return picturePath;
             }
-            case REQUEST_PICK_PICTURE: {
-                if (resultCode == RESULT_OK && data != null) {
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    String picturePath = null;
+            break;
+        }
 
-                    Cursor cursor = _context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        for (String column : filePathColumn) {
-                            int curColIndex = cursor.getColumnIndex(column);
-                            if (curColIndex == -1) {
-                                continue;
-                            }
-                            picturePath = cursor.getString(curColIndex);
-                            if (!TextUtils.isEmpty(picturePath)) {
-                                break;
-                            }
-                        }
-                        cursor.close();
-                    }
-
-                    // Try to grab via file extraction method
-                    data.setAction(Intent.ACTION_VIEW);
-                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(data);
-
-                    // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
-                    if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        try {
-                            ParcelFileDescriptor parcelFileDescriptor = _context.getContentResolver().openFileDescriptor(selectedImage, "r");
-                            if (parcelFileDescriptor != null) {
-                                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-                                FileInputStream input = new FileInputStream(fileDescriptor);
-
-                                // Create temporary file in cache directory
-                                picturePath = File.createTempFile("image", "tmp", _context.getCacheDir()).getAbsolutePath();
-                                FileUtils.writeFile(new File(picturePath), FileUtils.readCloseBinaryStream(input));
-                            }
-                        } catch (IOException ignored) {
-                            // nothing we can do here, null value will be handled below
-                        }
-                    }
-
-                    // Return path to picture on success, else null
-                    if (picturePath != null) {
-                        sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                    }
-                    return picturePath;
+        case REQUEST_SAF: {
+            if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                Uri treeUri = data.getData();
+                PreferenceManager.getDefaultSharedPreferences(_context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    activity.getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 }
-                break;
+                return treeUri;
             }
-
-            case REQUEST_SAF: {
-                if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-                    Uri treeUri = data.getData();
-                    PreferenceManager.getDefaultSharedPreferences(_context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        activity.getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    }
-                    return treeUri;
-                }
-                break;
-            }
+            break;
+        }
         }
         return null;
     }
@@ -864,7 +864,7 @@ public class ShareUtil {
 
         Cursor cursor = null;
         try {
-            cursor = _context.getContentResolver().query(uri, new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "= ?", new String[]{file.getAbsolutePath()}, null);
+            cursor = _context.getContentResolver().query(uri, new String[] {MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "= ?", new String[] {file.getAbsolutePath()}, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int mediaid = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
                 return Uri.withAppendedPath(uri, mediaid + "");
@@ -885,10 +885,10 @@ public class ShareUtil {
      * the customtab intent to use an available compatible browser, if available.
      */
     public void enableChromeCustomTabsForOtherBrowsers(final Intent customTabIntent) {
-        String[] checkpkgs = new String[]{
-                "com.android.chrome", "com.chrome.beta", "com.chrome.dev", "com.google.android.apps.chrome", "org.chromium.chrome",
-                "org.mozilla.fennec_fdroid", "org.mozilla.firefox", "org.mozilla.firefox_beta", "org.mozilla.fennec_aurora",
-                "org.mozilla.klar", "org.mozilla.focus",
+        String[] checkpkgs = new String[] {
+            "com.android.chrome", "com.chrome.beta", "com.chrome.dev", "com.google.android.apps.chrome", "org.chromium.chrome",
+            "org.mozilla.fennec_fdroid", "org.mozilla.firefox", "org.mozilla.firefox_beta", "org.mozilla.fennec_aurora",
+            "org.mozilla.klar", "org.mozilla.focus",
         };
 
         // Get all intent handlers for web links
@@ -940,10 +940,10 @@ public class ShareUtil {
         if (a != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-                    | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
-            );
+                            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                            | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                            | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                           );
             a.startActivityForResult(intent, REQUEST_SAF);
         }
     }
@@ -1034,7 +1034,7 @@ public class ShareUtil {
         if (file == null) {
             return false;
         } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
-                || file.getAbsolutePath().startsWith(_context.getFilesDir().getAbsolutePath())) {
+                   || file.getAbsolutePath().startsWith(_context.getFilesDir().getAbsolutePath())) {
             boolean s1 = isDir && file.getParentFile().canWrite();
             return !isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite();
         } else {
@@ -1186,7 +1186,7 @@ public class ShareUtil {
 
         if (android.os.Build.VERSION.SDK_INT >= 23 && ldirectCall && activity != null) {
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 4001);
+                ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.CALL_PHONE}, 4001);
                 ldirectCall = false;
             } else {
                 try {

@@ -97,16 +97,16 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
 
     public Snackbar showSnackBar(@StringRes int stringResId, boolean showLong) {
         Snackbar s = Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
-                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
+                                   showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
         s.show();
         return s;
     }
 
     public void showSnackBar(@StringRes int stringResId, boolean showLong, @StringRes int actionResId, View.OnClickListener listener) {
         Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
-                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT)
-                .setAction(actionResId, listener)
-                .show();
+                      showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT)
+        .setAction(actionResId, listener)
+        .show();
     }
 
     public ActivityUtils setSoftKeyboardVisibile(boolean visible, View... editView) {
@@ -124,7 +124,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
                     }
                 };
                 r.run();
-                for (int d : new int[]{100, 350}) {
+                for (int d : new int[] {100, 350}) {
                     v.postDelayed(r, d);
                 }
             }
@@ -179,8 +179,8 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
-                .setPositiveButton(android.R.string.ok, null).setOnDismissListener(dismissedListener)
-                .setView(scroll);
+        .setPositiveButton(android.R.string.ok, null).setOnDismissListener(dismissedListener)
+        .setView(scroll);
         if (resTitleId != 0) {
             dialog.setTitle(resTitleId);
         }
@@ -191,9 +191,9 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         WebView wv = new WebView(_context);
         wv.loadUrl("file:///android_res/raw/" + fileInRaw);
         AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
-                .setPositiveButton(android.R.string.ok, null)
-                .setTitle(resTitleId)
-                .setView(wv);
+        .setPositiveButton(android.R.string.ok, null)
+        .setTitle(resTitleId)
+        .setView(wv);
         dialogFullWidth(dialog.show(), true, false);
     }
 
@@ -216,13 +216,13 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         String pkgId = "details?id=" + _activity.getPackageName();
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                (Build.VERSION.SDK_INT >= 21 ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) |
-                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                            (Build.VERSION.SDK_INT >= 21 ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) |
+                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         try {
             _activity.startActivity(goToMarket);
         } catch (ActivityNotFoundException e) {
             _activity.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/" + pkgId)));
+                                               Uri.parse("https://play.google.com/store/apps/" + pkgId)));
         }
         return this;
     }
@@ -270,9 +270,9 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
 
     @ColorInt
     public Integer getActivityBackgroundColor() {
-        TypedArray array = _activity.getTheme().obtainStyledAttributes(new int[]{
-                android.R.attr.colorBackground,
-        });
+        TypedArray array = _activity.getTheme().obtainStyledAttributes(new int[] {
+                               android.R.attr.colorBackground,
+                           });
         int c = array.getColor(0, 0xFF0000);
         array.recycle();
         return c;

@@ -37,37 +37,37 @@ public class ItemViewFactory {
             builder.vibrateWhenLongPress(Setup.appSettings().getGestureFeedback());
             builder.withOnLongClick(item, type, callback);
             switch (type) {
-                case DRAWER:
-                    builder.setLabelVisibility(Setup.appSettings().getDrawerShowLabel());
-                    builder.setTextColor(Setup.appSettings().getDrawerLabelColor());
-                    break;
-                case DESKTOP:
-                default:
-                    builder.setLabelVisibility(Setup.appSettings().getDesktopShowLabel());
-                    builder.setTextColor(Color.WHITE);
-                    break;
+            case DRAWER:
+                builder.setLabelVisibility(Setup.appSettings().getDrawerShowLabel());
+                builder.setTextColor(Setup.appSettings().getDrawerLabelColor());
+                break;
+            case DESKTOP:
+            default:
+                builder.setLabelVisibility(Setup.appSettings().getDesktopShowLabel());
+                builder.setTextColor(Color.WHITE);
+                break;
             }
             switch (item.getType()) {
-                case APP:
-                    final App app = Setup.appLoader().findItemApp(item);
-                    if (app == null) break;
-                    view = builder.setAppItem(item).getView();
+            case APP:
+                final App app = Setup.appLoader().findItemApp(item);
+                if (app == null) break;
+                view = builder.setAppItem(item).getView();
 
-                    if (Setup.appSettings().getNotificationStatus()) {
-                        NotificationListener.setNotificationCallback(app.getPackageName(),
+                if (Setup.appSettings().getNotificationStatus()) {
+                    NotificationListener.setNotificationCallback(app.getPackageName(),
                             (NotificationListener.NotificationCallback) view);
-                    }
-                    break;
-                case SHORTCUT:
-                    view = builder.setShortcutItem(item).getView();
-                    break;
-                case GROUP:
-                    view = builder.setGroupItem(context, callback, item).getView();
-                    view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-                    break;
-                case ACTION:
-                    view = builder.setActionItem(item).getView();
-                    break;
+                }
+                break;
+            case SHORTCUT:
+                view = builder.setShortcutItem(item).getView();
+                break;
+            case GROUP:
+                view = builder.setGroupItem(context, callback, item).getView();
+                view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                break;
+            case ACTION:
+                view = builder.setActionItem(item).getView();
+                break;
             }
         }
 

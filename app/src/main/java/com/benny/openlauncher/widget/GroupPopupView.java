@@ -346,18 +346,18 @@ public class GroupPopupView extends RevealFrameLayout {
 
         static int[] getCellSize(int count) {
             if (count <= 1)
-                return new int[]{1, 1};
+                return new int[] {1, 1};
             if (count <= 2)
-                return new int[]{2, 1};
+                return new int[] {2, 1};
             if (count <= 4)
-                return new int[]{2, 2};
+                return new int[] {2, 2};
             if (count <= 6)
-                return new int[]{3, 2};
+                return new int[] {3, 2};
             if (count <= 9)
-                return new int[]{3, 3};
+                return new int[] {3, 3};
             if (count <= 12)
-                return new int[]{4, 3};
-            return new int[]{0, 0};
+                return new int[] {4, 3};
+            return new int[] {0, 0};
         }
     }
 }

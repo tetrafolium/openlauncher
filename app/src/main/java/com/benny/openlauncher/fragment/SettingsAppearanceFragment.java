@@ -21,9 +21,9 @@ public class SettingsAppearanceFragment extends SettingsBaseFragment {
         HomeActivity homeActivity = HomeActivity._launcher;
         int key = new ContextUtils(homeActivity).getResId(ContextUtils.ResType.STRING, preference.getKey());
         switch (key) {
-            case R.string.pref_key__icon_pack:
-                DialogHelper.startPickIconPackIntent(getActivity());
-                return true;
+        case R.string.pref_key__icon_pack:
+            DialogHelper.startPickIconPackIntent(getActivity());
+            return true;
         }
         return false;
     }

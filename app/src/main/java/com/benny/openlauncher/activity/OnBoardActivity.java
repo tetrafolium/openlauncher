@@ -38,28 +38,28 @@ public class OnBoardActivity extends MaterialIntroActivity {
         addSlide(new OnBoardActivity.CustomSlide());
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.materialRed)
-                .buttonsColor(R.color.introButton)
-                .image(R.drawable.intro_2)
-                .title(getString(R.string.minibar))
-                .description(getString(R.string.intro2_text))
-                .build());
+                 .backgroundColor(R.color.materialRed)
+                 .buttonsColor(R.color.introButton)
+                 .image(R.drawable.intro_2)
+                 .title(getString(R.string.minibar))
+                 .description(getString(R.string.intro2_text))
+                 .build());
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.materialGreen)
-                .buttonsColor(R.color.introButton)
-                .image(R.drawable.intro_3)
-                .title(getString(R.string.pref_title__app_drawer))
-                .description(getString(R.string.intro3_text))
-                .build());
+                 .backgroundColor(R.color.materialGreen)
+                 .buttonsColor(R.color.introButton)
+                 .image(R.drawable.intro_3)
+                 .title(getString(R.string.pref_title__app_drawer))
+                 .description(getString(R.string.intro3_text))
+                 .build());
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.materialBlue)
-                .buttonsColor(R.color.introButton)
-                .image(R.drawable.intro_4)
-                .title(getString(R.string.pref_title__search_bar))
-                .description(getString(R.string.intro4_text))
-                .build());
+                 .backgroundColor(R.color.materialBlue)
+                 .buttonsColor(R.color.introButton)
+                 .image(R.drawable.intro_4)
+                 .title(getString(R.string.pref_title__search_bar))
+                 .description(getString(R.string.intro4_text))
+                 .build());
     }
 
     @Override

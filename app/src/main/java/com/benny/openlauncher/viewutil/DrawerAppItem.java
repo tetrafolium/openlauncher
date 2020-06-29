@@ -44,8 +44,8 @@ public class DrawerAppItem extends AbstractItem<DrawerAppItem, DrawerAppItem.Vie
     public void bindView(DrawerAppItem.ViewHolder holder, List payloads) {
         Item item = Item.newAppItem(_app);
         holder.builder
-                .setAppItem(item)
-                .withOnLongClick(item, DragAction.Action.DRAWER, null);
+        .setAppItem(item)
+        .withOnLongClick(item, DragAction.Action.DRAWER, null);
         super.bindView(holder, payloads);
     }
 
@@ -60,9 +60,9 @@ public class DrawerAppItem extends AbstractItem<DrawerAppItem, DrawerAppItem.Vie
             appItemView.setTargetedHeightPadding(AppDrawerGrid._itemHeightPadding);
 
             builder = new AppItemView.Builder(appItemView)
-                    .setIconSize(Setup.appSettings().getIconSize())
-                    .setLabelVisibility(Setup.appSettings().getDrawerShowLabel())
-                    .setTextColor(Setup.appSettings().getDrawerLabelColor());
+            .setIconSize(Setup.appSettings().getIconSize())
+            .setLabelVisibility(Setup.appSettings().getDrawerShowLabel())
+            .setTextColor(Setup.appSettings().getDrawerLabelColor());
         }
     }
 }

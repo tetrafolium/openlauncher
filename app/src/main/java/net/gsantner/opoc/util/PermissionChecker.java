@@ -34,18 +34,18 @@ public class PermissionChecker {
 
             if (optionalToastMessageForKnowingWhyNeeded != null && optionalToastMessageForKnowingWhyNeeded.length > 0 && optionalToastMessageForKnowingWhyNeeded[0] != null) {
                 new AlertDialog.Builder(_activity)
-                        .setMessage(optionalToastMessageForKnowingWhyNeeded[0])
-                        .setCancelable(false)
-                        .setNegativeButton(android.R.string.no, null)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                                ActivityCompat.requestPermissions(_activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_PERMISSION_EXTERNAL_STORAGE);
-                            }
-                        })
-                        .show();
+                .setMessage(optionalToastMessageForKnowingWhyNeeded[0])
+                .setCancelable(false)
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        ActivityCompat.requestPermissions(_activity, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_PERMISSION_EXTERNAL_STORAGE);
+                    }
+                })
+                .show();
                 return false;
             }
-            ActivityCompat.requestPermissions(_activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_PERMISSION_EXTERNAL_STORAGE);
+            ActivityCompat.requestPermissions(_activity, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_PERMISSION_EXTERNAL_STORAGE);
             return false;
         }
         return true;
@@ -54,11 +54,11 @@ public class PermissionChecker {
     public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0) {
             switch (requestCode) {
-                case CODE_PERMISSION_EXTERNAL_STORAGE: {
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        return true;
-                    }
+            case CODE_PERMISSION_EXTERNAL_STORAGE: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    return true;
                 }
+            }
             }
         }
         return false;

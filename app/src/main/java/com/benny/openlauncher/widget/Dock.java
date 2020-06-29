@@ -59,22 +59,22 @@ public final class Dock extends CellContainer implements DesktopCallback {
 
     private void detectSwipe(MotionEvent ev) {
         switch (ev.getAction()) {
-            case 0:
-                _startPosX = ev.getX();
-                _startPosY = ev.getY();
-                break;
-            case 1:
-                if (_startPosY - ev.getY() > 150.0f && Setup.appSettings().getGestureDockSwipeUp()) {
-                    Point point = new Point((int) ev.getX(), (int) ev.getY());
-                    point = Tool.convertPoint(point, this, _homeActivity.getAppDrawerController());
-                    if (Setup.appSettings().getGestureFeedback()) {
-                        Tool.vibrate(this);
-                    }
-                    _homeActivity.openAppDrawer(this, point.x, point.y);
-                    break;
+        case 0:
+            _startPosX = ev.getX();
+            _startPosY = ev.getY();
+            break;
+        case 1:
+            if (_startPosY - ev.getY() > 150.0f && Setup.appSettings().getGestureDockSwipeUp()) {
+                Point point = new Point((int) ev.getX(), (int) ev.getY());
+                point = Tool.convertPoint(point, this, _homeActivity.getAppDrawerController());
+                if (Setup.appSettings().getGestureFeedback()) {
+                    Tool.vibrate(this);
                 }
-            default:
+                _homeActivity.openAppDrawer(this, point.x, point.y);
                 break;
+            }
+        default:
+            break;
         }
     }
 
@@ -87,20 +87,20 @@ public final class Dock extends CellContainer implements DesktopCallback {
         }
         _previousDragPoint.set(_coordinate.x, _coordinate.y);
         switch (state) {
-            case CurrentNotOccupied:
-                projectImageOutlineAt(_coordinate, DragHandler._cachedDragBitmap);
-                break;
-            case CurrentOccupied:
-                Item.Type type = dragNDropView.getDragItem()._type;
-                clearCachedOutlineBitmap();
-                if (!type.equals(Item.Type.WIDGET) && (coordinateToChildView(_coordinate) instanceof AppItemView)) {
-                    dragNDropView.showFolderPreviewAt(this, getCellWidth() * (_coordinate.x + 0.5f), getCellHeight() * (_coordinate.y + 0.5f) - (Setup.appSettings().getDockShowLabel() ? Tool.dp2px(7) : 0));
-                }
-                break;
-            case OutOffRange:
-            case ItemViewNotFound:
-            default:
-                break;
+        case CurrentNotOccupied:
+            projectImageOutlineAt(_coordinate, DragHandler._cachedDragBitmap);
+            break;
+        case CurrentOccupied:
+            Item.Type type = dragNDropView.getDragItem()._type;
+            clearCachedOutlineBitmap();
+            if (!type.equals(Item.Type.WIDGET) && (coordinateToChildView(_coordinate) instanceof AppItemView)) {
+                dragNDropView.showFolderPreviewAt(this, getCellWidth() * (_coordinate.x + 0.5f), getCellHeight() * (_coordinate.y + 0.5f) - (Setup.appSettings().getDockShowLabel() ? Tool.dp2px(7) : 0));
+            }
+            break;
+        case OutOffRange:
+        case ItemViewNotFound:
+        default:
+            break;
         }
     }
 

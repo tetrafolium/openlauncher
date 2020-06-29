@@ -76,7 +76,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     public SharedPreferencesPropertyBackend(final Context context, final String prefAppName) {
         _context = context.getApplicationContext();
         _prefAppName = TextUtils.isEmpty(prefAppName) ?
-                _context.getPackageName() + "_preferences" : prefAppName;
+                       _context.getPackageName() + "_preferences" : prefAppName;
         _prefApp = _context.getSharedPreferences(_prefAppName, Context.MODE_PRIVATE);
     }
 
@@ -220,8 +220,8 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     private ArrayList<String> getStringListOne(String key, final SharedPreferences pref) {
         ArrayList<String> ret = new ArrayList<>();
         String value = pref
-                .getString(key, ARRAY_SEPARATOR)
-                .replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
+                       .getString(key, ARRAY_SEPARATOR)
+                       .replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
         if (value.equals(ARRAY_SEPARATOR) || TextUtils.isEmpty(value)) {
             return ret;
         }

@@ -155,34 +155,34 @@ public class IconLabelItem extends AbstractItem<IconLabelItem, IconLabelItem.Vie
         }
 
         switch (_iconGravity) {
-            case Gravity.START:
-                if (_isAppLauncher) {
-                    holder.textView.setCompoundDrawables(_icon, null, null, null);
-                } else {
-                    holder.textView.setCompoundDrawablesWithIntrinsicBounds(_icon, null, null, null);
-                }
-                break;
-            case Gravity.END:
-                if (_isAppLauncher) {
-                    holder.textView.setCompoundDrawables(null, null, _icon, null);
-                } else {
-                    holder.textView.setCompoundDrawablesWithIntrinsicBounds(null, null, _icon, null);
-                }
-                break;
-            case Gravity.TOP:
-                if (_isAppLauncher) {
-                    holder.textView.setCompoundDrawables(null, _icon, null, null);
-                } else {
-                    holder.textView.setCompoundDrawablesWithIntrinsicBounds(null, _icon, null, null);
-                }
-                break;
-            case Gravity.BOTTOM:
-                if (_isAppLauncher) {
-                    holder.textView.setCompoundDrawables(null, null, null, _icon);
-                } else {
-                    holder.textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, _icon);
-                }
-                break;
+        case Gravity.START:
+            if (_isAppLauncher) {
+                holder.textView.setCompoundDrawables(_icon, null, null, null);
+            } else {
+                holder.textView.setCompoundDrawablesWithIntrinsicBounds(_icon, null, null, null);
+            }
+            break;
+        case Gravity.END:
+            if (_isAppLauncher) {
+                holder.textView.setCompoundDrawables(null, null, _icon, null);
+            } else {
+                holder.textView.setCompoundDrawablesWithIntrinsicBounds(null, null, _icon, null);
+            }
+            break;
+        case Gravity.TOP:
+            if (_isAppLauncher) {
+                holder.textView.setCompoundDrawables(null, _icon, null, null);
+            } else {
+                holder.textView.setCompoundDrawablesWithIntrinsicBounds(null, _icon, null, null);
+            }
+            break;
+        case Gravity.BOTTOM:
+            if (_isAppLauncher) {
+                holder.textView.setCompoundDrawables(null, null, null, _icon);
+            } else {
+                holder.textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, _icon);
+            }
+            break;
         }
 
         // most items will not use a long click

@@ -231,20 +231,20 @@ public class SearchBar extends FrameLayout {
                 for (int i = 0; i < apps.size(); i++) {
                     final App app = apps.get(i);
                     items.add(new IconLabelItem(app.getIcon(), app.getLabel())
-                            .withIconSize(50)
-                            .withTextColor(Color.WHITE)
-                            .withIsAppLauncher(true)
-                            .withIconPadding(8)
-                            .withOnClickAnimate(false)
-                            .withTextGravity(Setup.appSettings().getSearchUseGrid() ? Gravity.CENTER : Gravity.CENTER_VERTICAL)
-                            .withIconGravity(Setup.appSettings().getSearchUseGrid() ? Gravity.TOP : Gravity.START)
-                            .withOnClickListener(new OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Tool.startApp(v.getContext(), app, null);
-                                }
-                            })
-                            .withOnLongClickListener(DragHandler.getLongClick(Item.newAppItem(app), DragAction.Action.SEARCH, null)));
+                              .withIconSize(50)
+                              .withTextColor(Color.WHITE)
+                              .withIsAppLauncher(true)
+                              .withIconPadding(8)
+                              .withOnClickAnimate(false)
+                              .withTextGravity(Setup.appSettings().getSearchUseGrid() ? Gravity.CENTER : Gravity.CENTER_VERTICAL)
+                              .withIconGravity(Setup.appSettings().getSearchUseGrid() ? Gravity.TOP : Gravity.START)
+                    .withOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Tool.startApp(v.getContext(), app, null);
+                        }
+                    })
+                    .withOnLongClickListener(DragHandler.getLongClick(Item.newAppItem(app), DragAction.Action.SEARCH, null)));
                 }
                 _adapter.set(items);
 

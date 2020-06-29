@@ -153,7 +153,7 @@ public class NetworkUtils {
     private static String performCall(final URL url, final String method, final String data, final HttpURLConnection existingConnection) {
         try {
             final HttpURLConnection connection = existingConnection != null
-                    ? existingConnection : (HttpURLConnection) url.openConnection();
+                                                 ? existingConnection : (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(method);
             connection.setDoInput(true);
 
@@ -166,7 +166,7 @@ public class NetworkUtils {
             }
 
             InputStream input = connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST
-                    ? connection.getInputStream() : connection.getErrorStream();
+                                ? connection.getInputStream() : connection.getErrorStream();
 
             return FileUtils.readCloseTextStream(connection.getInputStream());
         } catch (Exception e) {
@@ -199,17 +199,17 @@ public class NetworkUtils {
             for (int i = 0; i < query.length(); i++) {
                 char c = query.charAt(i);
                 switch (c) {
-                    case '=':
-                        name = URLDecoder.decode(sb.toString(), UTF8);
-                        sb.setLength(0);
-                        break;
-                    case '&':
-                        result.put(name, URLDecoder.decode(sb.toString(), UTF8));
-                        sb.setLength(0);
-                        break;
-                    default:
-                        sb.append(c);
-                        break;
+                case '=':
+                    name = URLDecoder.decode(sb.toString(), UTF8);
+                    sb.setLength(0);
+                    break;
+                case '&':
+                    result.put(name, URLDecoder.decode(sb.toString(), UTF8));
+                    sb.setLength(0);
+                    break;
+                default:
+                    sb.append(c);
+                    break;
                 }
             }
             if (!name.isEmpty())

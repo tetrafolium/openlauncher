@@ -95,21 +95,21 @@ public class AppDrawerGrid extends FrameLayout {
         for (int i = 0; i < apps.size(); i++) {
             App app = apps.get(i);
             items.add(new IconLabelItem(app.getIcon(), app.getLabel())
-                    .withIconSize(Setup.appSettings().getIconSize())
-                    .withTextColor(Color.WHITE)
-                    .withTextVisibility(Setup.appSettings().getDrawerShowLabel())
-                    .withIconPadding(8)
-                    .withTextGravity(Gravity.CENTER)
-                    .withIconGravity(Gravity.TOP)
-                    .withOnClickAnimate(false)
-                    .withIsAppLauncher(true)
-                    .withOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Tool.startApp(v.getContext(), app, null);
-                        }
-                    })
-                    .withOnLongClickListener(DragHandler.getLongClick(Item.newAppItem(app), DragAction.Action.DRAWER, null)));
+                      .withIconSize(Setup.appSettings().getIconSize())
+                      .withTextColor(Color.WHITE)
+                      .withTextVisibility(Setup.appSettings().getDrawerShowLabel())
+                      .withIconPadding(8)
+                      .withTextGravity(Gravity.CENTER)
+                      .withIconGravity(Gravity.TOP)
+                      .withOnClickAnimate(false)
+                      .withIsAppLauncher(true)
+            .withOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tool.startApp(v.getContext(), app, null);
+                }
+            })
+            .withOnLongClickListener(DragHandler.getLongClick(Item.newAppItem(app), DragAction.Action.DRAWER, null)));
         }
         _gridDrawerAdapter.set(items);
     }

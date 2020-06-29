@@ -48,13 +48,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public Definitions.WallpaperScroll getDesktopWallpaperScroll() {
         int value = getIntOfStringPref(R.string.pref_key__desktop_wallpaper_scroll, 0);
         switch (value) {
-            case 0:
-            default:
-                return Definitions.WallpaperScroll.Normal;
-            case 1:
-                return Definitions.WallpaperScroll.Inverse;
-            case 2:
-                return Definitions.WallpaperScroll.Off;
+        case 0:
+        default:
+            return Definitions.WallpaperScroll.Normal;
+        case 1:
+            return Definitions.WallpaperScroll.Inverse;
+        case 2:
+            return Definitions.WallpaperScroll.Off;
         }
     }
 

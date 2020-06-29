@@ -30,14 +30,14 @@ public class SettingsMasterFragment extends SettingsBaseFragment {
         HomeActivity homeActivity = HomeActivity._launcher;
         int key = new ContextUtils(homeActivity).getResId(ContextUtils.ResType.STRING, preference.getKey());
         switch (key) {
-            case R.string.pref_key__cat_hide_apps:
-                Intent intent = new Intent(getActivity(), HideAppsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                return true;
-            case R.string.pref_key__cat_about:
-                startActivity(new Intent(getActivity(), MoreInfoActivity.class));
-                return true;
+        case R.string.pref_key__cat_hide_apps:
+            Intent intent = new Intent(getActivity(), HideAppsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            return true;
+        case R.string.pref_key__cat_about:
+            startActivity(new Intent(getActivity(), MoreInfoActivity.class));
+            return true;
         }
 
         return false;
@@ -55,13 +55,13 @@ public class SettingsMasterFragment extends SettingsBaseFragment {
         categoryAppearance.setSummary(String.format(Locale.ENGLISH, "%s: %ddp", getString(R.string.pref_title__icons), AppSettings.get().getIconSize()));
 
         switch (AppSettings.get().getDrawerStyle()) {
-            case GRID:
-                categoryAppDrawer.setSummary(String.format("%s: %s", getString(R.string.pref_title__style), getString(R.string.vertical_scroll_drawer)));
-                break;
-            case PAGE:
-            default:
-                categoryAppDrawer.setSummary(String.format("%s: %s", getString(R.string.pref_title__style), getString(R.string.horizontal_paged_drawer)));
-                break;
+        case GRID:
+            categoryAppDrawer.setSummary(String.format("%s: %s", getString(R.string.pref_title__style), getString(R.string.vertical_scroll_drawer)));
+            break;
+        case PAGE:
+        default:
+            categoryAppDrawer.setSummary(String.format("%s: %s", getString(R.string.pref_title__style), getString(R.string.horizontal_paged_drawer)));
+            break;
         }
     }
 }

@@ -232,23 +232,23 @@ public class ContextUtils {
             return "Amazon Appstore";
         }
         switch (src) {
-            case "com.android.vending":
-            case "com.google.android.feedback": {
-                return "Google Play";
-            }
-            case "org.fdroid.fdroid.privileged":
-            case "org.fdroid.fdroid": {
-                return "F-Droid";
-            }
-            case "com.github.yeriomin.yalpstore": {
-                return "Yalp Store";
-            }
-            case "cm.aptoide.pt": {
-                return "Aptoide";
-            }
-            case "com.android.packageinstaller": {
-                return "Package Installer";
-            }
+        case "com.android.vending":
+        case "com.google.android.feedback": {
+            return "Google Play";
+        }
+        case "org.fdroid.fdroid.privileged":
+        case "org.fdroid.fdroid": {
+            return "F-Droid";
+        }
+        case "com.github.yeriomin.yalpstore": {
+            return "Yalp Store";
+        }
+        case "cm.aptoide.pt": {
+            return "Aptoide";
+        }
+        case "com.android.packageinstaller": {
+            return "Package Installer";
+        }
         }
         return src;
     }
@@ -356,8 +356,8 @@ public class ContextUtils {
     public void showDonateBitcoinRequest(@StringRes final int srBitcoinId, @StringRes final int srBitcoinAmount, @StringRes final int srBitcoinMessage, @StringRes final int srAlternativeDonateUrl) {
         if (!isGooglePlayBuild()) {
             String btcUri = String.format("bitcoin:%s?amount=%s&label=%s&message=%s",
-                    rstr(srBitcoinId), rstr(srBitcoinAmount),
-                    rstr(srBitcoinMessage), rstr(srBitcoinMessage));
+                                          rstr(srBitcoinId), rstr(srBitcoinAmount),
+                                          rstr(srBitcoinMessage), rstr(srBitcoinMessage));
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(btcUri));
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -406,7 +406,7 @@ public class ContextUtils {
         try {
             ConnectivityManager con = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
             @SuppressLint("MissingPermission") NetworkInfo activeNetInfo =
-                    con == null ? null : con.getActiveNetworkInfo();
+                con == null ? null : con.getActiveNetworkInfo();
             return activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
         } catch (Exception ignored) {
             throw new RuntimeException("Error: Developer forgot to declare a permission");
@@ -452,10 +452,10 @@ public class ContextUtils {
     public String loadMarkdownForTextViewFromRaw(@RawRes int rawMdFile, String prepend) {
         try {
             return new SimpleMarkdownParser()
-                    .parse(_context.getResources().openRawResource(rawMdFile),
-                            prepend, SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
-                    .replaceColor("#000001", rcolor(getResId(ResType.COLOR, "accent")))
-                    .removeMultiNewlines().replaceBulletCharacter("*").getHtml();
+                   .parse(_context.getResources().openRawResource(rawMdFile),
+                          prepend, SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
+                   .replaceColor("#000001", rcolor(getResId(ResType.COLOR, "accent")))
+                   .removeMultiNewlines().replaceBulletCharacter("*").getHtml();
         } catch (IOException e) {
             e.printStackTrace();
             return "";
@@ -498,8 +498,8 @@ public class ContextUtils {
     public Locale getLocaleByAndroidCode(String androidLC) {
         if (!TextUtils.isEmpty(androidLC)) {
             return androidLC.contains("-r")
-                    ? new Locale(androidLC.substring(0, 2), androidLC.substring(4, 6)) // de-rAt
-                    : new Locale(androidLC); // de
+                   ? new Locale(androidLC.substring(0, 2), androidLC.substring(4, 6)) // de-rAt
+                   : new Locale(androidLC); // de
         }
         return Resources.getSystem().getConfiguration().locale;
     }
@@ -529,8 +529,8 @@ public class ContextUtils {
      */
     public boolean shouldColorOnTopBeLight(@ColorInt final int colorOnBottomInt) {
         return 186 > (((0.299 * Color.red(colorOnBottomInt))
-                + ((0.587 * Color.green(colorOnBottomInt))
-                + (0.114 * Color.blue(colorOnBottomInt)))));
+                       + ((0.587 * Color.green(colorOnBottomInt))
+                          + (0.114 * Color.blue(colorOnBottomInt)))));
     }
 
     /**
@@ -676,7 +676,7 @@ public class ContextUtils {
             }
 
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                                         drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
@@ -941,25 +941,25 @@ public class ContextUtils {
             // Try to guess if the recommended methods fail
             if (TextUtils.isEmpty(mimeType)) {
                 switch (ext) {
-                    case "md":
-                    case "markdown":
-                    case "mkd":
-                    case "mdown":
-                    case "mkdn":
-                    case "mdwn":
-                    case "rmd":
-                        mimeType = "text/markdown";
-                        break;
-                    case "yaml":
-                    case "yml":
-                        mimeType = "text/yaml";
-                        break;
-                    case "json":
-                        mimeType = "text/json";
-                        break;
-                    case "txt":
-                        mimeType = "text/plain";
-                        break;
+                case "md":
+                case "markdown":
+                case "mkd":
+                case "mdown":
+                case "mkdn":
+                case "mdwn":
+                case "rmd":
+                    mimeType = "text/markdown";
+                    break;
+                case "yaml":
+                case "yml":
+                    mimeType = "text/yaml";
+                    break;
+                case "json":
+                    mimeType = "text/json";
+                    break;
+                case "txt":
+                    mimeType = "text/plain";
+                    break;
                 }
             }
         }
@@ -985,8 +985,8 @@ public class ContextUtils {
         try {
             ActivityManager activityManager = (ActivityManager) _context.getSystemService(Context.ACTIVITY_SERVICE);
             return !ActivityManagerCompat.isLowRamDevice(activityManager) &&
-                    Runtime.getRuntime().availableProcessors() >= 4 &&
-                    activityManager.getMemoryClass() >= 128;
+                   Runtime.getRuntime().availableProcessors() >= 4 &&
+                   activityManager.getMemoryClass() >= 128;
         } catch (Exception ignored) {
             return true;
         }

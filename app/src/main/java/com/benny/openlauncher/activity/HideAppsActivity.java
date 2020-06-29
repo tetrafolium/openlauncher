@@ -55,10 +55,10 @@ public class HideAppsActivity extends ColorActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home: {
-                onBackPressed();
-                break;
-            }
+        case android.R.id.home: {
+            onBackPressed();
+            break;
+        }
         }
         return super.onOptionsItemSelected(item);
     }

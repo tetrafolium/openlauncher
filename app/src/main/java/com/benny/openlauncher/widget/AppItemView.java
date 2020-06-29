@@ -133,7 +133,7 @@ public class AppItemView extends View implements Drawable.Callback, Notification
                 int charsToTruncate = (int) ((testTextContainer.width() - maxTextWidth) / characterSize);
 
                 canvas.drawText(_label.substring(0, _label.length() - charsToTruncate) + ELLIPSIS,
-                        MIN_ICON_TEXT_MARGIN, getHeight() - _heightPadding, _textPaint);
+                                MIN_ICON_TEXT_MARGIN, getHeight() - _heightPadding, _textPaint);
             } else {
                 canvas.drawText(_label, (getWidth() - _textContainer.width()) / 2f, getHeight() - _heightPadding, _textPaint);
             }
@@ -147,16 +147,16 @@ public class AppItemView extends View implements Drawable.Callback, Notification
             _icon.draw(canvas);
 
             if (_notificationCount > 0) {
-                final String count = (_notificationCount > 99 ? "++" : String.valueOf(_notificationCount));                
+                final String count = (_notificationCount > 99 ? "++" : String.valueOf(_notificationCount));
                 float radius = _iconSize * .15f;
                 canvas.drawCircle(_iconSize - radius, radius, radius, _notifyPaint);
 
                 _notifyTextPaint.setTextSize((int) (radius * 1.5));
 
                 canvas.drawText(count,
-                        _iconSize - radius - (_notifyTextPaint.measureText(count) / 2),
-                        radius - ((_notifyTextPaint.descent() + _notifyTextPaint.ascent()) / 2),
-                        _notifyTextPaint);
+                                _iconSize - radius - (_notifyTextPaint.measureText(count) / 2),
+                                radius - ((_notifyTextPaint.descent() + _notifyTextPaint.ascent()) / 2),
+                                _notifyTextPaint);
             }
 
             canvas.restore();

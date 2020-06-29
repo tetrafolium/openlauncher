@@ -22,26 +22,26 @@ public class HpGestureCallback implements DesktopGestureListener.DesktopGestureC
     public boolean onDrawerGesture(Desktop desktop, DesktopGestureListener.Type event) {
         Object gesture = null;
         switch (event) {
-            case SwipeUp:
-                gesture = _appSettings.getGestureSwipeUp();
-                break;
-            case SwipeDown:
-                gesture = _appSettings.getGestureSwipeDown();
-                break;
-            case SwipeLeft:
-            case SwipeRight:
-                break;
-            case Pinch:
-                gesture = _appSettings.getGesturePinch();
-                break;
-            case Unpinch:
-                gesture = _appSettings.getGestureUnpinch();
-                break;
-            case DoubleTap:
-                gesture = _appSettings.getGestureDoubleTap();
-                break;
-            default:
-                Log.e(getClass().toString(), "gesture error");
+        case SwipeUp:
+            gesture = _appSettings.getGestureSwipeUp();
+            break;
+        case SwipeDown:
+            gesture = _appSettings.getGestureSwipeDown();
+            break;
+        case SwipeLeft:
+        case SwipeRight:
+            break;
+        case Pinch:
+            gesture = _appSettings.getGesturePinch();
+            break;
+        case Unpinch:
+            gesture = _appSettings.getGestureUnpinch();
+            break;
+        case DoubleTap:
+            gesture = _appSettings.getGestureDoubleTap();
+            break;
+        default:
+            Log.e(getClass().toString(), "gesture error");
         }
 
         if (gesture != null) {

@@ -30,15 +30,15 @@ public class WidgetView extends AppWidgetHostView {
         }
 
         switch (ev.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                _down = System.currentTimeMillis();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                long delta = System.currentTimeMillis() - _down;
-                if (delta > 300L) {
-                    _longClick.onLongClick(this);
-                }
-                break;
+        case MotionEvent.ACTION_DOWN:
+            _down = System.currentTimeMillis();
+            break;
+        case MotionEvent.ACTION_MOVE:
+            long delta = System.currentTimeMillis() - _down;
+            if (delta > 300L) {
+                _longClick.onLongClick(this);
+            }
+            break;
         }
 
         return false;

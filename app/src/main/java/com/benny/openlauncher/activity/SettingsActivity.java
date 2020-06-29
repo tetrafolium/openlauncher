@@ -69,14 +69,14 @@ public class SettingsActivity extends ColorActivity implements SettingsBaseFragm
             Setup.dataManager().close();
             List<Uri> files = Utils.getSelectedFilesFromResult(data);
             switch (requestCode) {
-                case Definitions.INTENT_BACKUP:
-                    BackupHelper.backupConfig(this, new File(Utils.getFileForUri(files.get(0)).getAbsolutePath() + "/openlauncher.zip").toString());
-                    Setup.dataManager().open();
-                    break;
-                case Definitions.INTENT_RESTORE:
-                    BackupHelper.restoreConfig(this, Utils.getFileForUri(files.get(0)).toString());
-                    System.exit(0);
-                    break;
+            case Definitions.INTENT_BACKUP:
+                BackupHelper.backupConfig(this, new File(Utils.getFileForUri(files.get(0)).getAbsolutePath() + "/openlauncher.zip").toString());
+                Setup.dataManager().open();
+                break;
+            case Definitions.INTENT_RESTORE:
+                BackupHelper.restoreConfig(this, Utils.getFileForUri(files.get(0)).toString());
+                System.exit(0);
+                break;
             }
         }
     }

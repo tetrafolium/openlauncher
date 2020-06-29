@@ -49,11 +49,11 @@ public class AppDrawerController extends RevealFrameLayout {
 
     public View getDrawer() {
         switch (_drawerMode) {
-            case Mode.GRID:
-                return _drawerViewGrid;
-            case Mode.PAGE:
-            default:
-                return _drawerViewPage;
+        case Mode.GRID:
+            return _drawerViewGrid;
+        case Mode.PAGE:
+        default:
+            return _drawerViewPage;
         }
     }
 
@@ -123,13 +123,13 @@ public class AppDrawerController extends RevealFrameLayout {
 
     public void reset() {
         switch (_drawerMode) {
-            case Mode.GRID:
-                _drawerViewGrid._recyclerView.scrollToPosition(0);
-                break;
-            case Mode.PAGE:
-            default:
-                _drawerViewPage.setCurrentItem(0, false);
-                break;
+        case Mode.GRID:
+            _drawerViewGrid._recyclerView.scrollToPosition(0);
+            break;
+        case Mode.PAGE:
+        default:
+            _drawerViewPage.setCurrentItem(0, false);
+            break;
         }
     }
 
@@ -140,18 +140,18 @@ public class AppDrawerController extends RevealFrameLayout {
         setVisibility(GONE);
         setBackgroundColor(Setup.appSettings().getDrawerBackgroundColor());
         switch (_drawerMode) {
-            case Mode.GRID:
-                _drawerViewGrid = new AppDrawerGrid(getContext());
-                addView(_drawerViewGrid);
-                break;
-            case Mode.PAGE:
-            default:
-                _drawerViewPage = (AppDrawerPage) layoutInflater.inflate(R.layout.view_app_drawer_page, this, false);
-                addView(_drawerViewPage);
-                PagerIndicator indicator = (PagerIndicator) layoutInflater.inflate(R.layout.view_drawer_indicator, this, false);
-                addView(indicator);
-                _drawerViewPage.withHome(indicator);
-                break;
+        case Mode.GRID:
+            _drawerViewGrid = new AppDrawerGrid(getContext());
+            addView(_drawerViewGrid);
+            break;
+        case Mode.PAGE:
+        default:
+            _drawerViewPage = (AppDrawerPage) layoutInflater.inflate(R.layout.view_app_drawer_page, this, false);
+            addView(_drawerViewPage);
+            PagerIndicator indicator = (PagerIndicator) layoutInflater.inflate(R.layout.view_drawer_indicator, this, false);
+            addView(indicator);
+            _drawerViewPage.withHome(indicator);
+            break;
         }
     }
 

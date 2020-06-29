@@ -33,16 +33,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE = "DROP TABLE IF EXISTS ";
     private static final String SQL_QUERY = "SELECT * FROM ";
     private static final String SQL_CREATE =
-            "CREATE TABLE " + TABLE_HOME + " ("
-                    + COLUMN_TIME + " INTEGER PRIMARY KEY,"
-                    + COLUMN_TYPE + " VARCHAR,"
-                    + COLUMN_LABEL + " VARCHAR,"
-                    + COLUMN_X_POS + " INTEGER,"
-                    + COLUMN_Y_POS + " INTEGER,"
-                    + COLUMN_DATA + " VARCHAR,"
-                    + COLUMN_PAGE + " INTEGER,"
-                    + COLUMN_DESKTOP + " INTEGER,"
-                    + COLUMN_STATE + " INTEGER)";
+        "CREATE TABLE " + TABLE_HOME + " ("
+        + COLUMN_TIME + " INTEGER PRIMARY KEY,"
+        + COLUMN_TYPE + " VARCHAR,"
+        + COLUMN_LABEL + " VARCHAR,"
+        + COLUMN_X_POS + " INTEGER,"
+        + COLUMN_Y_POS + " INTEGER,"
+        + COLUMN_DATA + " VARCHAR,"
+        + COLUMN_PAGE + " INTEGER,"
+        + COLUMN_DESKTOP + " INTEGER,"
+        + COLUMN_STATE + " INTEGER)";
 
     protected SQLiteDatabase _db;
     protected Context _context;
@@ -78,30 +78,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String concat = "";
         switch (item.getType()) {
-            case APP:
-            case SHORTCUT:
-                Tool.saveIcon(_context, Tool.drawableToBitmap(item.getIcon()), Integer.toString(item.getId()));
-                itemValues.put(COLUMN_DATA, Tool.getIntentAsString(item.getIntent()));
-                break;
-            case GROUP:
-                for (Item tmp : item.getItems()) {
-                    if (tmp != null) {
-                        concat += tmp.getId() + Definitions.DELIMITER;
-                    }
+        case APP:
+        case SHORTCUT:
+            Tool.saveIcon(_context, Tool.drawableToBitmap(item.getIcon()), Integer.toString(item.getId()));
+            itemValues.put(COLUMN_DATA, Tool.getIntentAsString(item.getIntent()));
+            break;
+        case GROUP:
+            for (Item tmp : item.getItems()) {
+                if (tmp != null) {
+                    concat += tmp.getId() + Definitions.DELIMITER;
                 }
-                itemValues.put(COLUMN_DATA, concat);
-                break;
-            case ACTION:
-                itemValues.put(COLUMN_DATA, item.getActionValue());
-                break;
-            case WIDGET:
-                concat = item.getWidgetValue()
-                        + Definitions.DELIMITER
-                        + item.getSpanX()
-                        + Definitions.DELIMITER
-                        + item.getSpanY();
-                itemValues.put(COLUMN_DATA, concat);
-                break;
+            }
+            itemValues.put(COLUMN_DATA, concat);
+            break;
+        case ACTION:
+            itemValues.put(COLUMN_DATA, item.getActionValue());
+            break;
+        case WIDGET:
+            concat = item.getWidgetValue()
+                     + Definitions.DELIMITER
+                     + item.getSpanX()
+                     + Definitions.DELIMITER
+                     + item.getSpanY();
+            itemValues.put(COLUMN_DATA, concat);
+            break;
         }
         itemValues.put(COLUMN_PAGE, page);
         itemValues.put(COLUMN_DESKTOP, itemPosition.ordinal());
@@ -138,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         // delete the item itself
-        _db.delete(TABLE_HOME, COLUMN_TIME + " = ?", new String[]{String.valueOf(item.getId())});
+        _db.delete(TABLE_HOME, COLUMN_TIME + " = ?", new String[] {String.valueOf(item.getId())});
     }
 
     public List<List<Item>> getDesktop() {
@@ -206,28 +206,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String concat = "";
         switch (item.getType()) {
-            case APP:
-            case SHORTCUT:
-                Tool.saveIcon(_context, Tool.drawableToBitmap(item.getIcon()), Integer.toString(item.getId()));
-                itemValues.put(COLUMN_DATA, Tool.getIntentAsString(item.getIntent()));
-                break;
-            case GROUP:
-                for (Item tmp : item.getItems()) {
-                    concat += tmp.getId() + Definitions.DELIMITER;
-                }
-                itemValues.put(COLUMN_DATA, concat);
-                break;
-            case ACTION:
-                itemValues.put(COLUMN_DATA, item.getActionValue());
-                break;
-            case WIDGET:
-                concat = item.getWidgetValue()
-                        + Definitions.DELIMITER
-                        + item.getSpanX()
-                        + Definitions.DELIMITER
-                        + item.getSpanY();
-                itemValues.put(COLUMN_DATA, concat);
-                break;
+        case APP:
+        case SHORTCUT:
+            Tool.saveIcon(_context, Tool.drawableToBitmap(item.getIcon()), Integer.toString(item.getId()));
+            itemValues.put(COLUMN_DATA, Tool.getIntentAsString(item.getIntent()));
+            break;
+        case GROUP:
+            for (Item tmp : item.getItems()) {
+                concat += tmp.getId() + Definitions.DELIMITER;
+            }
+            itemValues.put(COLUMN_DATA, concat);
+            break;
+        case ACTION:
+            itemValues.put(COLUMN_DATA, item.getActionValue());
+            break;
+        case WIDGET:
+            concat = item.getWidgetValue()
+                     + Definitions.DELIMITER
+                     + item.getSpanX()
+                     + Definitions.DELIMITER
+                     + item.getSpanY();
+            itemValues.put(COLUMN_DATA, concat);
+            break;
         }
         _db.update(TABLE_HOME, itemValues, COLUMN_TIME + " = " + item.getId(), null);
     }
@@ -267,32 +267,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String[] dataSplit;
         switch (type) {
-            case APP:
-            case SHORTCUT:
-                item.setIntent(Tool.getIntentFromString(data));
-                App app = Setup.get().getAppLoader().findItemApp(item);
-                item.setIcon(app != null ? app.getIcon() : null);
-                break;
-            case GROUP:
-                item.setItems(new ArrayList<>());
-                dataSplit = data.split(Definitions.DELIMITER);
-                for (String string : dataSplit) {
-                    if (string.isEmpty()) continue;
-                    Item groupItem = getItem(Integer.parseInt(string));
-                    if (groupItem != null) {
-                        item.getItems().add(groupItem);
-                    }
+        case APP:
+        case SHORTCUT:
+            item.setIntent(Tool.getIntentFromString(data));
+            App app = Setup.get().getAppLoader().findItemApp(item);
+            item.setIcon(app != null ? app.getIcon() : null);
+            break;
+        case GROUP:
+            item.setItems(new ArrayList<>());
+            dataSplit = data.split(Definitions.DELIMITER);
+            for (String string : dataSplit) {
+                if (string.isEmpty()) continue;
+                Item groupItem = getItem(Integer.parseInt(string));
+                if (groupItem != null) {
+                    item.getItems().add(groupItem);
                 }
-                break;
-            case ACTION:
-                item.setActionValue(Integer.parseInt(data));
-                break;
-            case WIDGET:
-                dataSplit = data.split(Definitions.DELIMITER);
-                item.setWidgetValue(Integer.parseInt(dataSplit[0]));
-                item.setSpanX(Integer.parseInt(dataSplit[1]));
-                item.setSpanY(Integer.parseInt(dataSplit[2]));
-                break;
+            }
+            break;
+        case ACTION:
+            item.setActionValue(Integer.parseInt(data));
+            break;
+        case WIDGET:
+            dataSplit = data.split(Definitions.DELIMITER);
+            item.setWidgetValue(Integer.parseInt(dataSplit[0]));
+            item.setSpanX(Integer.parseInt(dataSplit[1]));
+            item.setSpanY(Integer.parseInt(dataSplit[2]));
+            break;
         }
 
         return item;

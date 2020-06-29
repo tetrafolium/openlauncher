@@ -321,14 +321,14 @@ public final class ItemOptionView extends FrameLayout {
             if (_dragging) {
                 _dragLocation.set(event.getX(), event.getY());
                 switch (event.getActionMasked()) {
-                    case 1:
-                        handleDragFinished();
-                        break;
-                    case 2:
-                        handleMovement();
-                        break;
-                    default:
-                        break;
+                case 1:
+                    handleDragFinished();
+                    break;
+                case 2:
+                    handleMovement();
+                    break;
+                default:
+                    break;
                 }
                 if (_dragging) {
                     return true;
@@ -342,24 +342,24 @@ public final class ItemOptionView extends FrameLayout {
     public void showItemPopup(final HomeActivity homeActivity) {
         ArrayList<PopupIconLabelItem> itemList = new ArrayList<>();
         switch (getDragItem().getType()) {
-            case APP:
-            case SHORTCUT:
-                if (!getDragAction().equals(Action.DRAWER)) {
-                    itemList.add(editItem);
-                    itemList.add(removeItem);
-                }
-                itemList.add(uninstallItem);
-                itemList.add(infoItem);
-                break;
-            case ACTION:
-            case GROUP:
+        case APP:
+        case SHORTCUT:
+            if (!getDragAction().equals(Action.DRAWER)) {
                 itemList.add(editItem);
                 itemList.add(removeItem);
-                break;
-            case WIDGET:
-                itemList.add(removeItem);
-                itemList.add(resizeItem);
-                break;
+            }
+            itemList.add(uninstallItem);
+            itemList.add(infoItem);
+            break;
+        case ACTION:
+        case GROUP:
+            itemList.add(editItem);
+            itemList.add(removeItem);
+            break;
+        case WIDGET:
+            itemList.add(removeItem);
+            itemList.add(resizeItem);
+            break;
         }
 
         float x = getDragLocation().x - HomeActivity._itemTouchX + Tool.dp2px(10);
@@ -385,21 +385,21 @@ public final class ItemOptionView extends FrameLayout {
                 if (dragItem != null) {
                     HpItemOption itemOption = new HpItemOption(homeActivity);
                     switch ((int) item.getIdentifier()) {
-                        case uninstallItemIdentifier:
-                            itemOption.onUninstallItem(dragItem);
-                            break;
-                        case editItemIdentifier:
-                            itemOption.onEditItem(dragItem);
-                            break;
-                        case removeItemIdentifier:
-                            itemOption.onRemoveItem(dragItem);
-                            break;
-                        case infoItemIdentifier:
-                            itemOption.onInfoItem(dragItem);
-                            break;
-                        case resizeItemIdentifier:
-                            itemOption.onResizeItem(dragItem);
-                            break;
+                    case uninstallItemIdentifier:
+                        itemOption.onUninstallItem(dragItem);
+                        break;
+                    case editItemIdentifier:
+                        itemOption.onEditItem(dragItem);
+                        break;
+                    case removeItemIdentifier:
+                        itemOption.onRemoveItem(dragItem);
+                        break;
+                    case infoItemIdentifier:
+                        itemOption.onInfoItem(dragItem);
+                        break;
+                    case resizeItemIdentifier:
+                        itemOption.onResizeItem(dragItem);
+                        break;
                     }
                 }
                 collapse();

@@ -412,18 +412,18 @@ public class FileUtils {
                 int dot = file.getName().lastIndexOf(".") + 1;
                 if (dot > 0 && dot < file.getName().length()) {
                     switch (file.getName().substring(dot)) {
-                        case "md":
-                        case "markdown":
-                        case "mkd":
-                        case "mdown":
-                        case "mkdn":
-                        case "mdwn":
-                        case "rmd":
-                            guess = "text/markdown";
-                            break;
-                        case "txt":
-                            guess = "text/plain";
-                            break;
+                    case "md":
+                    case "markdown":
+                    case "mkd":
+                    case "mdown":
+                    case "mkdn":
+                    case "mdwn":
+                    case "rmd":
+                        guess = "text/markdown";
+                        break;
+                    case "txt":
+                        guess = "text/plain";
+                        break;
                     }
                 }
             }
@@ -475,7 +475,7 @@ public class FileUtils {
         if (size <= 0) {
             return "0B";
         }
-        String[] units = abbreviation ? new String[]{"B", "kB", "MB", "GB", "TB"} : new String[]{"Bytes", "Kilobytes", "Megabytes", "Gigabytes", "Terabytes"};
+        String[] units = abbreviation ? new String[] {"B", "kB", "MB", "GB", "TB"} : new String[] {"Bytes", "Kilobytes", "Megabytes", "Gigabytes", "Terabytes"};
         int unit = (int) (Math.log10(size) / Math.log10(1024));
         return new DecimalFormat("#,##0.#", DecimalFormatSymbols.getInstance(Locale.ENGLISH)).format(size / Math.pow(1024, unit)) + " " + units[unit];
     }

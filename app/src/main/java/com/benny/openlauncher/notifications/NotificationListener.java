@@ -39,11 +39,11 @@ public class NotificationListener extends NotificationListenerService {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case EVENT_UPDATE_CURRENT_NOS:
-                    updateCurrentNotifications();
-                    break;
-                default:
-                    break;
+            case EVENT_UPDATE_CURRENT_NOS:
+                updateCurrentNotifications();
+                break;
+            default:
+                break;
             }
         }
     };
@@ -83,7 +83,7 @@ public class NotificationListener extends NotificationListenerService {
             notificationCount = 1;
         }
         processCallback(sbn.getPackageName(), notificationCount);
-     }
+    }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {

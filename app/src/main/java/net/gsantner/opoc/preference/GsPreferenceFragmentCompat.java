@@ -86,7 +86,7 @@ import java.util.Set;
  */
 @SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
 public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPropertyBackend> extends PreferenceFragmentCompat
-        implements SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
+    implements SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
     private static final int DEFAULT_ICON_TINT_DELAY = 200;
     protected boolean _isDividerVisible = false;
 
@@ -153,7 +153,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
 
 
         if (activity != null && activity.getTheme() != null) {
-            TypedArray array = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
+            TypedArray array = activity.getTheme().obtainStyledAttributes(new int[] {android.R.attr.colorBackground});
             int bgcolor = array.getColor(0, 0xFFFFFFFF);
             _defaultIconTintColor = _cu.shouldColorOnTopBeLight(bgcolor) ? Color.WHITE : Color.BLACK;
         }
@@ -168,7 +168,7 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
             final Integer color = getIconTintColor();
             if (view != null && color != null) {
                 Runnable r = () -> tintAllPrefIcons(frag, color);
-                for (long delayFactor : new int[]{1, 10, 50, 100, 500}) {
+                for (long delayFactor : new int[] {1, 10, 50, 100, 500}) {
                     view.postDelayed(r, delayFactor * DEFAULT_ICON_TINT_DELAY);
                 }
             }
