@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 public class AutoFinishActivity extends Activity {
-  @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    finish();
-  }
+@Override
+protected void onCreate(@Nullable Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	finish();
+}
 
-  public static void start(Context context) {
-    context.startActivity(new Intent(context, AutoFinishActivity.class));
-  }
+public static void start(Context context) {
+	context.startActivity(new Intent(context, AutoFinishActivity.class));
+}
 }
