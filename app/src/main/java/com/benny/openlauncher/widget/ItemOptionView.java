@@ -337,24 +337,22 @@ public final class ItemOptionView extends FrameLayout {
   }
 
   public boolean onTouchEvent(@Nullable MotionEvent event) {
-    if (event != null) {
-      if (_dragging) {
-        _dragLocation.set(event.getX(), event.getY());
-        switch (event.getActionMasked()) {
-        case 1:
-          handleDragFinished();
-          break;
-        case 2:
-          handleMovement();
-          break;
-        default:
-          break;
-        }
-        if (_dragging) {
-          return true;
-        }
-        return super.onTouchEvent(event);
+    if ((event != null) && (_dragging)) {
+      _dragLocation.set(event.getX(), event.getY());
+      switch (event.getActionMasked()) {
+      case 1:
+        handleDragFinished();
+        break;
+      case 2:
+        handleMovement();
+        break;
+      default:
+        break;
       }
+      if (_dragging) {
+        return true;
+      }
+      return super.onTouchEvent(event);
     }
     return super.onTouchEvent(event);
   }
@@ -484,15 +482,13 @@ public final class ItemOptionView extends FrameLayout {
   private void handleDragFinished() {
     _dragging = false;
     for (Entry dropTarget : _registeredDropTargetEntries.entrySet()) {
-      if (!((DragFlag)dropTarget.getValue()).getShouldIgnore()) {
-        if (isViewContains(((DropTargetListener)dropTarget.getKey()).getView(),
-                           (int)_dragLocation.x, (int)_dragLocation.y)) {
-          convertPoint(((DropTargetListener)dropTarget.getKey()).getView());
-          DropTargetListener dropTargetListener =
-              (DropTargetListener)dropTarget.getKey();
-          dropTargetListener.onDrop(_dragAction, _dragLocationConverted,
-                                    _dragItem);
-        }
+      if ((!((DragFlag)dropTarget.getValue()).getShouldIgnore()) && (isViewContains(((DropTargetListener)dropTarget.getKey()).getView(),
+                           (int)_dragLocation.x, (int)_dragLocation.y))) {
+        convertPoint(((DropTargetListener)dropTarget.getKey()).getView());
+        DropTargetListener dropTargetListener =
+            (DropTargetListener)dropTarget.getKey();
+        dropTargetListener.onDrop(_dragAction, _dragLocationConverted,
+                                  _dragItem);
       }
     }
     for (Entry dropTarget2 : _registeredDropTargetEntries.entrySet()) {

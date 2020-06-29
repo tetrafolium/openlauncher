@@ -1381,7 +1381,7 @@ public class ShareUtil {
           "Error: ShareUtil::callTelephoneNumber needs to be contstructed with activity context");
     }
     boolean ldirectCall =
-        (directCall != null && directCall.length > 0) ? directCall[0] : true;
+        !((directCall != null && directCall.length > 0)) || directCall[0];
 
     if (android.os.Build.VERSION.SDK_INT >= 23 && ldirectCall &&
         activity != null) {

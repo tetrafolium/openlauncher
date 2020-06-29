@@ -74,9 +74,8 @@ public class NetworkUtils {
                   ? connection.getInputStream()
                   : connection.getErrorStream();
 
-      if (!outFile.getParentFile().isDirectory())
-        if (!outFile.getParentFile().mkdirs())
-          return false;
+      if ((!outFile.getParentFile().isDirectory()) && (!outFile.getParentFile().mkdirs()))
+        return false;
       output = new FileOutputStream(outFile);
 
       int count;

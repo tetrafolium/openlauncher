@@ -499,10 +499,8 @@ public abstract class GsPreferenceFragmentCompat<
    */
   protected boolean appendPreference(Preference pref,
                                      @Nullable PreferenceGroup target) {
-    if (target == null) {
-      if ((target = getPreferenceScreen()) == null) {
-        return false;
-      }
+    if ((target == null) && ((target = getPreferenceScreen()) == null)) {
+      return false;
     }
     if (getIconTintColor() != null && pref.getIcon() != null &&
         isAllowedToTint(pref)) {

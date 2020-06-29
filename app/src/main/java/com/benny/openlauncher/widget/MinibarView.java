@@ -45,15 +45,13 @@ public class MinibarView extends ListView {
               return true;
             int dx = (int)(e2.getX() - e1.getX());
             int dy = (int)(e2.getY() - e1.getY());
-            if (Math.abs(dx) > dis && Math.abs(dy) < vDis) {
-              if (velocityX > 0) {
-                try {
-                  int pos = pointToPosition((int)e1.getX(), (int)e1.getY());
-                  if (pos != -1 && _onSwipeRight != null)
-                    _onSwipeRight.onSwipe(pos, e1.getX(), e1.getY());
-                } catch (Exception e) {
-                  e.printStackTrace();
-                }
+            if ((Math.abs(dx) > dis && Math.abs(dy) < vDis) && (velocityX > 0)) {
+              try {
+                int pos = pointToPosition((int)e1.getX(), (int)e1.getY());
+                if (pos != -1 && _onSwipeRight != null)
+                  _onSwipeRight.onSwipe(pos, e1.getX(), e1.getY());
+              } catch (Exception e) {
+                e.printStackTrace();
               }
             }
             return true;

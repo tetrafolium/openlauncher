@@ -340,13 +340,11 @@ public class FileUtils {
       }
     }
 
-    if (!srcFile.renameTo(destFile)) {
-      if (copyFile(srcFile, destFile) && !srcFile.delete()) {
-        if (!destFile.delete()) {
-          return false;
-        }
+    if ((!srcFile.renameTo(destFile)) && (copyFile(srcFile, destFile) && !srcFile.delete())) {
+      if (!destFile.delete()) {
         return false;
       }
+      return false;
     }
     return true;
   }

@@ -83,10 +83,8 @@ public class BackupHelper {
         found = true;
         // delete old file first
         File oldFile = new File(file);
-        if (oldFile.exists()) {
-          if (!oldFile.delete()) {
-            throw new Exception("Could not delete " + file);
-          }
+        if ((oldFile.exists()) && (!oldFile.delete())) {
+          throw new Exception("Could not delete " + file);
         }
 
         FileOutputStream outFile = new FileOutputStream(file);
