@@ -606,7 +606,7 @@ public static boolean isCurrentHourOfDayBetween(int begin, int end) {
 }
 
 /**
- * Substract current datetime by given amount of days
+ * Subtract current datetime by given amount of days
  */
 public Date getDateOfDaysAgo(int days) {
 	Calendar cal = new GregorianCalendar();
@@ -615,7 +615,7 @@ public Date getDateOfDaysAgo(int days) {
 }
 
 /**
- * Substract current datetime by given amount of days and check if the given
+ * Subtract current datetime by given amount of days and check if the given
  * date passed
  */
 public boolean didDaysPassedSince(Date date, int days) {

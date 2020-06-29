@@ -75,7 +75,7 @@ import java.util.Random;
 /**
  * A utility class to ease information sharing on Android.
  * Also allows to parse/fetch information out of shared information.
- * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
+ * (M)Permissions are not checked, wrap ShareUtils methods if necessary
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue",
                    "unused", "deprecation", "ConstantConditions",
@@ -255,7 +255,7 @@ public boolean shareStream(final File file, final String mimeType) {
  * Share the given files as stream with given mime-type
  *
  * @param files    The files to share
- * @param mimeType The files mime type. Usally * / * is the best option
+ * @param mimeType The files mime type. Usually * / * is the best option
  */
 public boolean shareStreamMultiple(final Collection<File> files,
                                    final String mimeType) {
