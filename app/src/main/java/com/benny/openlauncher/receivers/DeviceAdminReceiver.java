@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 
 public class DeviceAdminReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Log.d("DeviceAdminReceiver", "DeviceAdmin received");
-    }
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Log.d("DeviceAdminReceiver", "DeviceAdmin received");
+  }
 }
